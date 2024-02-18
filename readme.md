@@ -200,6 +200,7 @@ This first part will guide you to provision all required IBM resources for this 
 2. On the topbar menu navigate to **Manage** --> **Access (IAM)** --> **API keys**
 
     <img src="assets/images/CreateApiKey.png" width="280">
+
     
     <img src="assets/images/ApiKeyMenu.jpeg" width="200">
 
