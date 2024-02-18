@@ -48,6 +48,7 @@ There are 3 parts of hands-on as following:
     <img src="assets/Catalog.jpeg" width="390">
     
     then it will show like this:
+
     <img src="assets/watsonml.jpeg" width="390">
 
 4. Select **Watson Machine Learning** as shown above, and then select a preferable location e.g. Tokyo(tj-tok) as shown below:
@@ -102,6 +103,7 @@ There are 3 parts of hands-on as following:
     <img src="assets/Catalog.jpeg" width="390">
     
     then it will show like this:
+
     <img src="assets/WatsonDiscovery.jpeg" width="390">
 
 4. Select **Watson Discovery** as shown above, and then select a preferable location e.g. Tokyo(tj-tok) as shown below:
@@ -155,6 +157,7 @@ There are 3 parts of hands-on as following:
     <img src="assets/Catalog.jpeg" width="390">
     
     then it will show like this:
+    
     <img src="assets/watsonxAssistant.jpeg" width="390">
 
 4. Select **watsonx Assistant** as shown above, and then select a preferable location e.g. Tokyo(tj-tok) as shown below:
