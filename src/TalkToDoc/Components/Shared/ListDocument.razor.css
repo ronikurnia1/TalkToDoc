@@ -1,0 +1,12 @@
+﻿/* Stripe effect */
+::deep tbody tr {
+    background-color: rgba(0,0,0,0.04);
+}
+
+    ::deep tbody tr:nth-child(even) {
+        background: rgba(255,255,255,0.4);
+    }
+
+::deep thead .selection-column {
+    width: 8rem;
+}

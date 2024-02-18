@@ -1,0 +1,113 @@
+﻿@attribute [StreamRendering]
+@inject ILogger<ListDocument> Logger
+
+<h3>Upload document</h3>
+
+<EditForm EditContext="editContext" FormName="uploadDoc" OnSubmit="@(async()=> await SubmitForm())">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label class="form-label">Document name</label>
+        <InputText class="form-control" @bind-Value="uploadDocForm!.DocumentName" />
+        <ValidationMessage For="()=> uploadDocForm.DocumentName" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Upload document</label>
+        <InputFile class="form-control" OnChange="LoadFile" />
+        <ValidationMessage For="()=> uploadDocForm.FileName" />
+    </div>
+    <div class="mb-3">
+        <button disabled="@disabledBtn" class="btn btn-primary" type="submit">Upload</button>
+    </div>
+</EditForm>
+
+
+<h3>Document list</h3>
+
+@if (documents == null)
+{
+    <p><em>Refreshing...</em></p>
+}
+else
+{
+    <QuickGrid Items="@documents">
+        <TemplateColumn Title="Action" Class="selection-column" Align="Align.Center">
+            <button type="button" @onclick="@(()=>RemoveDocument(context.Id))"
+                    class="btn btn-secondary btn-sm">
+                Remove
+            </button>
+        </TemplateColumn>
+        <PropertyColumn Property="@(p=> p.Id)" Title="Document id" Sortable="true" />
+        <PropertyColumn Property="@(p=> p.Name)" Sortable="true" />
+        <TemplateColumn Title="Link">
+            <a href="@context.Url" target="_blank">here</a>
+        </TemplateColumn>
+    </QuickGrid>
+}
+
+@code {
+    [Inject]
+    private IWatsonDiscoveryService watsonDiscovery { get; set; } = default!;
+    private IQueryable<Document>? documents;
+
+    [Inject]
+    private DocumentContext documentContext { get; set; } = default!;
+
+    private EditContext? editContext;
+    [SupplyParameterFromForm]
+    private UploadDocumentForm? uploadDocForm { get; set; }
+
+    private MemoryStream memoryStream = new();
+    private bool disabledBtn = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        uploadDocForm = new();
+        editContext = new(uploadDocForm);
+        //documents = (await watsonDiscovery.GetDocuments()).AsQueryable();
+        documents = documentContext.Documents.AsQueryable();
+        await Task.CompletedTask;
+    }
+
+    private async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        await e.File.OpenReadStream().CopyToAsync(memoryStream);
+
+        // Save to local
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/data", e.File.Name);
+        await using FileStream fs = new(filePath, FileMode.Create);
+        await e.File.OpenReadStream().CopyToAsync(fs);
+        uploadDocForm!.FileName = filePath;
+        disabledBtn = false;
+    }
+
+    private async Task RemoveDocument(string collectionId)
+    {
+        documents = null;
+        var doc = documentContext.Documents.FirstOrDefault(d => d.Id == collectionId);
+        documentContext.Documents.Remove(doc!);
+        await documentContext.SaveChangesAsync();
+        await watsonDiscovery.RemoveCollection(collectionId);
+        documents = documentContext.Documents.AsQueryable();
+    }
+
+    private async ValueTask SubmitForm()
+    {
+        if (editContext != null && editContext.Validate())
+        {
+            Logger.LogInformation("Submit called: Form is valid");
+            documents = null;
+            await watsonDiscovery.UploadDocument(uploadDocForm!.FileName!, uploadDocForm!.DocumentName!);
+
+            // Refresh list
+            uploadDocForm = new();
+            documents = documentContext.Documents.AsQueryable();
+        }
+        else
+        {
+            Logger.LogInformation("Submit called: Form is INVALID");
+            //uploadDocForm = new();
+        }
+    }
+
+
+}

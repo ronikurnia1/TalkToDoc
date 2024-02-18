@@ -1,0 +1,32 @@
+﻿@rendermode InteractiveWebAssembly
+@implements IAsyncDisposable
+
+@code {
+    [Inject]
+    private IJSRuntime JS { get; set; } = default!;
+
+    [Inject]
+    private IConfiguration configuration { get; set; } = default!;
+
+    private IJSInProcessObjectReference? module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var integrationId = configuration["watsonxAssistant:IntegrationId"];
+        var region = configuration["watsonxAssistant:Region"];
+        var serviceInstanceId = configuration["watsonxAssistant:ServiceInstanceId"];
+        module = await JS.InvokeAsync<IJSInProcessObjectReference>("import", "/Shared/Chatbot.razor.js");
+        await module.InvokeVoidAsync("showChatbot", integrationId, region, serviceInstanceId);
+    }
+
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.InvokeVoidAsync("destroyChatbot");
+            await module.DisposeAsync();
+        }
+    }
+
+}

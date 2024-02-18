@@ -1,0 +1,71 @@
+﻿#WACContainer.WACContainer .WACTextHolderTile {
+    display: flex;
+    padding: 12px;
+    min-height: auto;
+}
+
+#WACContainer.WACContainer .WACTextHolderTile__Icon {
+    flex: 0 1 auto;
+    margin: 0 8px 0 0;
+}
+
+#WACContainer.WACContainer .WACTextHolderTile__Wrapper {
+    flex: 1 1;
+    align-self: center;
+}
+
+#WACContainer.WACContainer .SearchResultCard-button,
+#WACContainer.WACContainer .SearchResultCard {
+    padding: 0;
+    width: 100%;
+    text-align: unset;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: unset;
+    width: 100%;
+    outline: none;
+    border: 2px solid transparent;
+}
+
+#WACContainer.WACContainer .SearchResultCard-button {
+    cursor: pointer;
+}
+
+#WACContainer.WACContainer .SearchResultCard-launch {
+    float: right;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+#WACContainer.WACContainer .SearchResultIcon {
+    height: 16px;
+}
+
+#WACContainer.WACContainer .SearchResultTitle {
+    display: flex;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 4px;
+}
+
+#WACContainer.WACContainer .SearchResultSnippet {
+    font-family: 'IBM Plex Sans';
+    color: #000000;
+    font-weight: 400;
+    line-height: 18px;
+    font-size: 12px;
+    font-style: normal;
+}
+
+#WACContainer.WACContainer .SearchResultSnippetEmphasizedAnswer {
+    font-family: 'IBM Plex Sans';
+    color: #000000;
+    font-weight: 600;
+    line-height: 18px;
+    font-size: 14px;
+    text-decoration: underline;
+    font-style: normal;
+}
