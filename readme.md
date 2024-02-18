@@ -27,7 +27,7 @@ To be able to do this hans-on you will need to have the following:
 3. C# Dev Kit extension for VS Code: https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit
 4. .NET SDK 8.0.2 - https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 5. Git Client: https://git-scm.com/
-6. Clone hands-on assets from 
+6. Clone hands-on assets from Github: https://github.com/ronikurnia1/TalkToDoc.git 
 
 ## Hands-on Guide
 
@@ -157,7 +157,7 @@ There are 3 parts of hands-on as following:
     <img src="assets/Catalog.jpeg" width="390">
     
     then it will show like this:
-    
+
     <img src="assets/watsonxAssistant.jpeg" width="390">
 
 4. Select **watsonx Assistant** as shown above, and then select a preferable location e.g. Tokyo(tj-tok) as shown below:
