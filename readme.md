@@ -3,7 +3,7 @@
 ## 1. Introduction
 This workshop will guide you through step-by-step on how to adopt IBM generative AI service/product (watsonx Assistant, watsonx.ai and Watson Discovery) into your application with a simple use-case as starting point.
 
-The sample app for this hands-on called **TalkToDoc** (ready to use) is a simple web application developed using .NET that enable user to chat with their document.
+The sample app in this hands-on called **TalkToDoc** is a simple web application that enable user to chat with their document. This sample app was developed using .NET 
 
 This sample app is powered by the following IBM generative AI service/product:
 

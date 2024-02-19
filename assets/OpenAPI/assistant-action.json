@@ -4,7 +4,7 @@
   "valid": true,
   "status": "Available",
   "created": "2024-02-05T01:42:48.180Z",
-  "updated": "2024-02-19T14:18:22.940Z",
+  "updated": "2024-02-19T23:43:46.703Z",
   "language": "en",
   "skill_id": "33af513b-cb4c-4a1d-b89d-cc9b15dcc6c7",
   "workspace": {
@@ -2573,6 +2573,6 @@
   "assistant_id": "72b408f2-f376-408a-94bc-9a75390e2b4c",
   "workspace_id": "33af513b-cb4c-4a1d-b89d-cc9b15dcc6c7",
   "dialog_settings": {},
-  "next_snapshot_version": "6",
+  "next_snapshot_version": "8",
   "environment_id": "d4d22cdd-16ab-4e99-a9c6-25eda9f6a963"
 }
