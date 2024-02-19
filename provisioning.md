@@ -185,3 +185,5 @@ Part 2 will guide you how to provision all required IBM resources for this hands
 
 6. Congratulation! now you've completed creating you API key
 
+
+Next part [3. Develop watsonx Assistant](develop.md#3-develop-watsonx-assistant)

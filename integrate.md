@@ -64,4 +64,6 @@ Part 4 will guide you how to use IBM generative AI in your app
 
 9. You test watsonx Assistant directly inside watsonx Assistant webtool by clicking **Preview** button at the bottom right corner 
 
-9. Re-publish your watsonx Assistant on Live environment if you want to see the effect on your app.
+10. Re-publish your watsonx Assistant on Live environment if you want to see the effect on your app.
+
+11. Congratulation, you've completed this workshop!
