@@ -308,3 +308,5 @@ Part (part 3) will guide you how to setup watsonx Assistant using pre-build samp
 
 4. Congratulation! you've just completed publishing watsonx Assistant
 
+
+Next part [4. Integrate IBM generative AI to your app](integrate.md#4-integrate-ibm-generative-ai-to-your-app)
