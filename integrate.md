@@ -10,11 +10,11 @@ Part 4 will guide you how to use IBM generative AI in your app
 
 ### 3.1 Update application code
 
-1. Use Visual Studio Code and open the source code you've cloned before
+1. Use Visual Studio Code and open the source code you've cloned/downloaded before
 
 2. Open Terminal on your Visual Studio Code and navigate to the following folder: \TalkToDoc\src\TalkToDoc
 
-3. Run the following commands to add user secrets:
+3. Run the following commands to add required parameters using user secrets:
 
     ```
     dotnet user-secrets init
@@ -44,26 +44,43 @@ Part 4 will guide you how to use IBM generative AI in your app
 
     dotnet run 
     ```
+
+    <img src="assets/images/debug.png" width="500">
+
+
 2. Use browser to open link that appear on the terminal e.g. http://localhost:5082
 
 3. Try to upload sample document located on folder assets/samples/ 
 
-4. Once you upload a document you will get the document id that you can use to start the chat. But you will need to wait for couple of minutes to allow Watson Discovery digest the data.
 
-5. The default LLM mode is using google/flan-ul2. Now let try using different model e.g. Azure OpenAI (gpt-3.5-turbo)
+    <img src="assets/images/UploadDoc.jpeg" widht="480">
 
-6. Open watsonx Assistant, navigate to **Actions** --> **Created by you**
+4. Once you upload a document you will get the **document id** that you can use to start the chat. But you will need to wait for couple of minutes to allow Watson Discovery digest the data.
 
-7. Open **Document Analysis** action, select step 3 and click on **Edit settings**
+5. The default LLM mode is using **google/flan-ul2**
+
+    <img src="assets/images/watsonxChatWithDoc.jpeg" width="480">
+
+6. Now let try using different model e.g. Azure OpenAI (gpt-3.5-turbo)
+
+7. Open watsonx Assistant, navigate to **Actions** --> **Created by you**
+
+    <img src="assets/images/DocAnalysis.jpeg" width="480">
+
+8. Open **Document Analysis** action, select step 3 and click on **Edit settings**
 
     <img src="assets/images/ChangeModel.jpeg" width="450">
 
-8. Change **Go to** value by selecting **Process using Azure OpenAI** and click **Apply** button
+9. Change **Go to** value by selecting **Process using Azure OpenAI** and click **Apply** button
 
     <img src="assets/images/UseAzureOpenAi.jpeg" width="380">
 
-9. You test watsonx Assistant directly inside watsonx Assistant webtool by clicking **Preview** button at the bottom right corner 
+10. You can test watsonx Assistant directly inside watsonx Assistant webtool by clicking **Preview** button at the bottom right corner 
 
-10. Re-publish your watsonx Assistant on Live environment if you want to see the effect on your app.
+11. If required re-publish your watsonx Assistant on Live environment if you want to see the effect on your app.
 
-11. Congratulation, you've completed this workshop!
+12. Test again on sample app and see if any different
+
+    <img src="assets/images/OpenAiChatWithDoc.jpeg" width="480">
+
+13. Congratulation, you've completed this workshop!
