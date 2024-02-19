@@ -27,7 +27,7 @@ To be able to do this hans-on you will need to have the following:
 3. C# Dev Kit extension for VS Code: https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit
 4. .NET SDK 8.0.2 - https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 5. Git Client: https://git-scm.com/
-6. Clone this repo to your local machine: https://github.com/ronikurnia1/TalkToDoc.git 
+6. Clone/download this repo to your local machine: https://github.com/ronikurnia1/TalkToDoc.git 
 
 ## Hands-on Guide
 

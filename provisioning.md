@@ -8,7 +8,7 @@ This is the part 2 of 4 hands-on guides:
 
 Part 2 will guide you how to provision all required IBM resources for this hands-on 
 
-### 1.1. watsonx.ai
+### 2.1. watsonx.ai
 
 1. Login to https://cloud.ibm.com with your account
 2. Click **Create resource** button at the right top corner
@@ -64,7 +64,7 @@ Part 2 will guide you how to provision all required IBM resources for this hands
 
 14. Congratulation! now you've completed provision of watsonx.ai resource
 
-### 1.2. Watson Discovery
+### 2.2. Watson Discovery
 
 1. Login to https://cloud.ibm.com with your account
 2. Click **Create resource** button at the right top corner
@@ -89,6 +89,7 @@ Part 2 will guide you how to provision all required IBM resources for this hands
     <img src="assets/images/agree.jpeg" width="210">
     
     then click **Creat** button and wait for couple of minutes.
+
 
 7. Once Watson Discovery successfully created, take a note (copy and save) the **API key** and **URL** as we will need this later
 
@@ -118,7 +119,7 @@ Part 2 will guide you how to provision all required IBM resources for this hands
 
 13. Congratulation! now you've completed provision of Watson Discovery resource
 
-### 1.3. watsonx assistant
+### 2.3. watsonx assistant
 
 1. Login to https://cloud.ibm.com with your account
 2. Click **Create resource** button at the right top corner
@@ -161,7 +162,7 @@ Part 2 will guide you how to provision all required IBM resources for this hands
 
 11. Congratulation! now you've completed provision of watsonx Assistant resource
 
-### 1.4. Create API key
+### 2.4. Create API key
 
 1. Login to https://cloud.ibm.com with your account
 2. On the topbar menu navigate to **Manage** --> **Access (IAM)** --> **API keys**

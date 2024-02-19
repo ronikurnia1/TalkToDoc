@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TalkToDoc.Client.Shared;
 using TalkToDoc.Components;
 using TalkToDoc.Models;
 using TalkToDoc.Services;
@@ -10,8 +11,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddControllers();
+
 builder.Services.AddScoped<IWatsonDiscoveryService, WatsonDiscoveryService>();
 builder.Services.AddAntiforgery();
+
+builder.Services.AddHttpClient();
+
 
 builder.Services.AddDbContext<DocumentContext>(options =>
 {
@@ -19,6 +25,8 @@ builder.Services.AddDbContext<DocumentContext>(options =>
 });
 
 builder.Services.AddQuickGridEntityFrameworkAdapter();
+builder.Services.Configure<WatsonDiscoveryConfig>(builder.Configuration.GetSection(WatsonDiscoveryConfig.Name));
+builder.Services.Configure<WatsonxAssistantConfig>(builder.Configuration.GetSection(WatsonxAssistantConfig.Name));
 
 var app = builder.Build();
 
@@ -43,6 +51,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+app.MapControllers();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()

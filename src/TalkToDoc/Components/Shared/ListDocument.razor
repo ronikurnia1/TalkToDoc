@@ -1,5 +1,6 @@
 ﻿@attribute [StreamRendering]
 @inject ILogger<ListDocument> Logger
+@rendermode InteractiveServer
 
 <h3>Upload document</h3>
 
@@ -12,11 +13,12 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Upload document</label>
-        <InputFile class="form-control" OnChange="LoadFile" />
+        <InputFile class="form-control" oncancel="OnCancel" OnChange="LoadFile" multiple="false" />
         <ValidationMessage For="()=> uploadDocForm.FileName" />
     </div>
     <div class="mb-3">
-        <button disabled="@disabledBtn" class="btn btn-primary" type="submit">Upload</button>
+        <button class="btn btn-primary" type="submit">Upload</button>
+        <button class="btn btn-secondary" onclick="@(async ()=> Reset())" type="button">Reset</button>
     </div>
 </EditForm>
 
@@ -31,7 +33,7 @@ else
 {
     <QuickGrid Items="@documents">
         <TemplateColumn Title="Action" Class="selection-column" Align="Align.Center">
-            <button type="button" @onclick="@(()=>RemoveDocument(context.Id))"
+            <button type="button" @onclick="@(() => RemoveDocument(context.Id))"
                     class="btn btn-secondary btn-sm">
                 Remove
             </button>
@@ -56,38 +58,45 @@ else
     [SupplyParameterFromForm]
     private UploadDocumentForm? uploadDocForm { get; set; }
 
-    private MemoryStream memoryStream = new();
-    private bool disabledBtn = true;
-
     protected override async Task OnInitializedAsync()
     {
-        uploadDocForm = new();
-        editContext = new(uploadDocForm);
-        //documents = (await watsonDiscovery.GetDocuments()).AsQueryable();
-        documents = documentContext.Documents.AsQueryable();
+        await Reset();
+        documents = documentContext.Documents.ToList().AsQueryable();
         await Task.CompletedTask;
     }
 
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
+        MemoryStream memoryStream = new();
         await e.File.OpenReadStream().CopyToAsync(memoryStream);
 
         // Save to local
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/data", e.File.Name);
         await using FileStream fs = new(filePath, FileMode.Create);
         await e.File.OpenReadStream().CopyToAsync(fs);
+        fs.Close();
+
         uploadDocForm!.FileName = filePath;
-        disabledBtn = false;
+        memoryStream.Close();
+    }
+
+
+    private async Task Reset()
+    {
+        uploadDocForm = new();
+        editContext = new(uploadDocForm);
+        await Task.CompletedTask;
+
     }
 
     private async Task RemoveDocument(string collectionId)
     {
-        documents = null;
         var doc = documentContext.Documents.FirstOrDefault(d => d.Id == collectionId);
         documentContext.Documents.Remove(doc!);
         await documentContext.SaveChangesAsync();
+
         await watsonDiscovery.RemoveCollection(collectionId);
-        documents = documentContext.Documents.AsQueryable();
+        documents = documentContext.Documents.ToList().AsQueryable();
     }
 
     private async ValueTask SubmitForm()
@@ -95,12 +104,18 @@ else
         if (editContext != null && editContext.Validate())
         {
             Logger.LogInformation("Submit called: Form is valid");
-            documents = null;
-            await watsonDiscovery.UploadDocument(uploadDocForm!.FileName!, uploadDocForm!.DocumentName!);
+
+            var collectionId = await watsonDiscovery.UploadDocument(uploadDocForm!.FileName!, uploadDocForm!.DocumentName!);
+            //var collectionId = Guid.NewGuid().ToString();
+
+            var fileName = Path.GetFileName(uploadDocForm!.FileName!);
+            var doc = new Document { Id = collectionId, Name = uploadDocForm!.DocumentName!, Url = $"/data/{fileName}" };
+            documentContext.Documents.Add(doc);
+            await documentContext.SaveChangesAsync();
 
             // Refresh list
-            uploadDocForm = new();
-            documents = documentContext.Documents.AsQueryable();
+            await Reset();
+            documents = documentContext.Documents.ToList().AsQueryable();
         }
         else
         {
