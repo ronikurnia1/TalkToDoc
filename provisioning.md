@@ -119,7 +119,7 @@ Part 2 will guide you how to provision all required IBM resources for this hands
 
 13. Congratulation! now you've completed provision of Watson Discovery resource
 
-### 2.3. watsonx assistant
+### 2.3. watsonx Assistant
 
 1. Login to https://cloud.ibm.com with your account
 2. Click **Create resource** button at the right top corner
