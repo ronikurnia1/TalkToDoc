@@ -13,7 +13,7 @@ This sample app is powered by the following IBM generative AI service/product:
 
 **TalkToDoc architecture diagram**
 
-<img src="assets/images/TalkToDocDiagram.png">
+<img src="assets/images/TalkToDocDiagram.png" width="510">
 
 1. User upload a document
 2. User start chat with the document
@@ -22,7 +22,7 @@ This sample app is powered by the following IBM generative AI service/product:
 
 **TalkToDoc App**
 
-<img src="assets/images/Heading.jpeg">
+<img src="assets/images/Heading.jpeg" width="510">
 
 ## Prerequisites
 To be able to do this hans-on you will need to have the following:
