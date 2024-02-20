@@ -52,7 +52,6 @@ Part 4 will guide you how to use IBM generative AI in your app
 
 3. Try to upload sample document located on folder assets/samples/ 
 
-
     <img src="assets/images/UploadDoc.jpeg" width="480">
 
 4. Once you upload a document you will get the **document id** that you can use to start the chat. But you will need to wait for couple of minutes to allow Watson Discovery digest the data.
