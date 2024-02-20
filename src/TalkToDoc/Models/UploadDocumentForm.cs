@@ -7,7 +7,7 @@ public class UploadDocumentForm
     [Required(ErrorMessage = "Document name is required")]
     public string? DocumentName { get; set; }
 
-    [Required(ErrorMessage = "File is required")]
+    [Required(ErrorMessage = "File document is required")]
     public string? FileName { get; set; }
 
 }
