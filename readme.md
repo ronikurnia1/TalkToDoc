@@ -7,22 +7,22 @@ The sample app in this hands-on called **TalkToDoc** is a simple web application
 
 This sample app is powered by the following IBM generative AI service/product:
 
-1. watsonx assistant: https://www.ibm.com/products/watsonx-assistant
+1. watsonx Assistant: https://www.ibm.com/products/watsonx-assistant
 2. watsonx.ai: https://www.ibm.com/products/watsonx-ai
-3. watson discovery: https://www.ibm.com/products/watson-discovery
+3. Watson Discovery: https://www.ibm.com/products/watson-discovery
 
 **TalkToDoc architecture diagram**
 
-<img src="assets/images/TalkToDocDiagram.png">
+<img src="assets/images/TalkToDocDiagram.png" width="510">
 
 1. User upload a document
 2. User start chat with the document
-3. watsonx assistant query the docs
-4. watsonx assistant send prompt (containing doc query results) to LLM to generate the answer
+3. watsonx Assistant query the docs
+4. watsonx Assistant send prompt (containing doc query results) to LLM to generate the answer
 
 **TalkToDoc App**
 
-<img src="assets/images/Heading.jpeg">
+<img src="assets/images/Heading.jpeg" width="510">
 
 ## Prerequisites
 To be able to do this hans-on you will need to have the following:
