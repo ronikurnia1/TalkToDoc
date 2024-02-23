@@ -12,7 +12,7 @@ Part 4 will guide you how to use IBM generative AI in your app
 
 1. Use Visual Studio Code and open the source code you've cloned/downloaded before
 
-2. Open Terminal on your Visual Studio Code and navigate to the following folder: \TalkToDoc\src\TalkToDoc
+2. Open Terminal on your Visual Studio Code and navigate to the following directory: \TalkToDoc\src\TalkToDoc
 
 3. Run the following commands to add required parameters using user secrets:
 

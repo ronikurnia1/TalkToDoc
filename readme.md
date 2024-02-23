@@ -26,7 +26,7 @@ This sample app is powered by the following IBM generative AI service/product:
 
 ## Prerequisites
 To be able to do this hans-on you will need to have the following:
-1. IBM Cloud Account
+1. IBM Cloud Account (don't have one? apply here: https://cloud.ibm.com/registration)
 2. Visual Studio Code: https://code.visualstudio.com/Download 
 3. C# Dev Kit extension for VS Code: https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit
 4. .NET SDK 8.0.2 - https://dotnet.microsoft.com/en-us/download/dotnet/8.0

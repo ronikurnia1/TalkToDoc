@@ -9,12 +9,12 @@
     <div class="mb-3">
         <label class="form-label">Document name</label>
         <InputText class="form-control" @bind-Value="uploadDocForm!.DocumentName" />
-        <ValidationMessage For="()=> uploadDocForm.DocumentName" />
+        <ValidationMessage class="small text-danger" For="()=> uploadDocForm.DocumentName" />
     </div>
     <div class="mb-3">
         <label class="form-label">File document</label>
         <InputFile class="form-control" oncancel="OnCancel" OnChange="LoadFile" multiple="false" />
-        <ValidationMessage For="()=> uploadDocForm.FileName" />
+        <ValidationMessage class="small text-danger" For="()=> uploadDocForm.FileName" />
     </div>
     <div class="mb-3">
         <button class="btn btn-primary" type="submit">Upload</button>
@@ -76,8 +76,10 @@ else
         await e.File.OpenReadStream().CopyToAsync(fs);
         fs.Close();
 
-        uploadDocForm!.FileName = filePath;
+        uploadDocForm!.FileName = filePath;        
         memoryStream.Close();
+
+        editContext?.Validate();
     }
 
 
@@ -91,6 +93,8 @@ else
 
     private async Task RemoveDocument(string collectionId)
     {
+        documents = null;
+
         var doc = documentContext.Documents.FirstOrDefault(d => d.Id == collectionId);
         documentContext.Documents.Remove(doc!);
         await documentContext.SaveChangesAsync();
@@ -105,9 +109,8 @@ else
         {
             Logger.LogInformation("Submit called: Form is valid");
 
+            documents = null;
             var collectionId = await watsonDiscovery.UploadDocument(uploadDocForm!.FileName!, uploadDocForm!.DocumentName!);
-            //var collectionId = Guid.NewGuid().ToString();
-
             var fileName = Path.GetFileName(uploadDocForm!.FileName!);
             var doc = new Document { Id = collectionId, Name = uploadDocForm!.DocumentName!, Url = $"/data/{fileName}" };
             documentContext.Documents.Add(doc);
