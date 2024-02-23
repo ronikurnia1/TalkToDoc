@@ -62,8 +62,8 @@ Part (part 3) will guide you how to setup watsonx Assistant using pre-build samp
 11. On **Authentication** tab set the fields as follows:
     - Authentication type: **Basic auth**
     - Username: **apikey**
-    - Password: [[**API Key** from step 7 of 1.2. Watson Discovery]](provisioning.md#12-watson-discovery)
-    - discovery_url: [[**Url** from step 7 of 1.2. Watson Discovery]](provisioning.md#12-watson-discovery)
+    - Password: [[**API Key** from step 7 of 2.2. Watson Discovery]](provisioning.md#22-watson-discovery)
+    - discovery_url: [[**Url** from step 7 of 2.2. Watson Discovery]](provisioning.md#22-watson-discovery)
 
     <img src="assets/images/SettingAtuhExtension.jpeg" width="450">
 
@@ -135,7 +135,7 @@ Part (part 3) will guide you how to setup watsonx Assistant using pre-build samp
 11. On **Authentication** tab set the fields as follows:
     - Authentication type: **OAuth 2**
     - Grant type: **Custom apikey**
-    - Apikey: **[ApiKey from 1.4. Create API key step 5]**
+    - Apikey: [[**ApiKey** from 2.4. Create API key step 5]](provisioning.md#24-create-api-key)
     - Leave the rest as is
 
     <img src="assets/images/watsonxAiAuth.jpeg" width="450">
