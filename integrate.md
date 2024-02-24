@@ -8,7 +8,7 @@ This is the part 4 of 4 hands-on guides:
 
 Part 4 will guide you how to use IBM generative AI in your app
 
-### 3.1 Update application code
+### 4.1 Update application code
 
 1. Use Visual Studio Code and open the source code you've cloned/downloaded before
 
@@ -35,7 +35,7 @@ Part 4 will guide you how to use IBM generative AI in your app
     ```
     
 
-### 3.2 Test your application
+### 4.2 Test your application
 
 1. Debug sample app using the following command:
 
