@@ -49,10 +49,8 @@ else
 @code {
     [Inject]
     private IWatsonDiscoveryService watsonDiscovery { get; set; } = default!;
-    private IQueryable<Document>? documents;
 
-    [Inject]
-    private DocumentContext documentContext { get; set; } = default!;
+    private IQueryable<Document>? documents { get; set; }
 
     private EditContext? editContext;
     [SupplyParameterFromForm]
@@ -61,8 +59,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         await Reset();
-        documents = documentContext.Documents.ToList().AsQueryable();
-        await Task.CompletedTask;
+        documents = (await watsonDiscovery.GetDocuments()).AsQueryable();
     }
 
     private async Task LoadFile(InputFileChangeEventArgs e)
@@ -76,7 +73,7 @@ else
         await e.File.OpenReadStream().CopyToAsync(fs);
         fs.Close();
 
-        uploadDocForm!.FileName = filePath;        
+        uploadDocForm!.FileName = filePath;
         memoryStream.Close();
 
         editContext?.Validate();
@@ -88,19 +85,19 @@ else
         uploadDocForm = new();
         editContext = new(uploadDocForm);
         await Task.CompletedTask;
-
     }
 
     private async Task RemoveDocument(string collectionId)
     {
         documents = null;
 
-        var doc = documentContext.Documents.FirstOrDefault(d => d.Id == collectionId);
-        documentContext.Documents.Remove(doc!);
-        await documentContext.SaveChangesAsync();
+        //var doc = documentContext.Documents.FirstOrDefault(d => d.Id == collectionId);
+        //documentContext.Documents.Remove(doc!);
+        //await documentContext.SaveChangesAsync();
 
         await watsonDiscovery.RemoveCollection(collectionId);
-        documents = documentContext.Documents.ToList().AsQueryable();
+        //documents = documentContext.Documents.ToList().AsQueryable();
+        documents = (await watsonDiscovery.GetDocuments()).AsQueryable();
     }
 
     private async ValueTask SubmitForm()
@@ -112,13 +109,16 @@ else
             documents = null;
             var collectionId = await watsonDiscovery.UploadDocument(uploadDocForm!.FileName!, uploadDocForm!.DocumentName!);
             var fileName = Path.GetFileName(uploadDocForm!.FileName!);
-            var doc = new Document { Id = collectionId, Name = uploadDocForm!.DocumentName!, Url = $"/data/{fileName}" };
-            documentContext.Documents.Add(doc);
-            await documentContext.SaveChangesAsync();
+
+            // var doc = new Document { Id = collectionId, Name = uploadDocForm!.DocumentName!, Url = $"/data/{fileName}" };
+            // documentContext.Documents.Add(doc);
+            // await documentContext.SaveChangesAsync();
 
             // Refresh list
             await Reset();
-            documents = documentContext.Documents.ToList().AsQueryable();
+            //documents = documentContext.Documents.ToList().AsQueryable();
+            documents = (await watsonDiscovery.GetDocuments()).AsQueryable();
+
         }
         else
         {

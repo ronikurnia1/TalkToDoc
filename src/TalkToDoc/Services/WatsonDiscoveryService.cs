@@ -2,6 +2,7 @@
 using IBM.Cloud.SDK.Core.Authentication.Iam;
 using IBM.Watson.Discovery.v2;
 using TalkToDoc.Client.Shared;
+using IBM.Watson.Discovery.v2.Model;
 
 namespace TalkToDoc.Services;
 
@@ -17,12 +18,10 @@ public interface IWatsonDiscoveryService
 public class WatsonDiscoveryService : IWatsonDiscoveryService
 {
     private readonly WatsonDiscoveryConfig config;
-    private readonly DocumentContext documentContext;
 
 
-    public WatsonDiscoveryService(DocumentContext documentContext, IConfiguration configuration)
+    public WatsonDiscoveryService(IConfiguration configuration)
     {
-        this.documentContext = documentContext;
         config = new WatsonDiscoveryConfig();
         configuration.GetSection(WatsonDiscoveryConfig.Name).Bind(config);
     }
@@ -32,8 +31,20 @@ public class WatsonDiscoveryService : IWatsonDiscoveryService
         Document[] docs = [];
         await Task.Run(() =>
         {
-            var result = discovery.ListCollections(config.ProjectId);
-            docs = result.Result.Collections.Select(c => new Document { Id = c.CollectionId, Name = c.Name }).ToArray();
+            var colls = discovery.ListCollections(config.ProjectId);
+            foreach (var collection in colls.Result.Collections)
+            {
+                // get the docs
+                var disDocs = discovery.ListDocuments(config.ProjectId, collection.CollectionId);
+                var mapDoc = disDocs.Result.Documents.Select(d => new Document
+                {
+                    Id = collection.CollectionId,
+                    Name = collection.Name,
+                    Url = $"/data/{d.Filename}"
+                }).ToArray();
+                docs = docs.Union(mapDoc).ToArray();
+            }
+            //docs = colls.Result.Collections.Select(c => new Document { Id = c.CollectionId, Name = c.Name }).ToArray();
         });
         return docs;
     }
@@ -61,17 +72,14 @@ public class WatsonDiscoveryService : IWatsonDiscoveryService
         var discovery = CreateInstance();
 
         var memStream = new MemoryStream(File.ReadAllBytes(file));
+        var fileName = Path.GetFileName(file);
 
         // Create collection
         var collectionId = discovery.CreateCollection(projectId: config.ProjectId,
             name: name).Result.CollectionId;
 
-        discovery.AddDocument(config.ProjectId, collectionId, memStream, name, "application/pdf");
-
-        //var fileName = Path.GetFileName(file);
-        //var doc = new Document { Id = collectionId, Name = name, Url = $"/data/{fileName}" };
-        //documentContext.Documents.Add(doc);
-        //await documentContext.SaveChangesAsync();
+        discovery.AddDocument(config.ProjectId, collectionId, file:
+            memStream, filename: fileName, fileContentType: "application/pdf");
 
         await Task.CompletedTask;
         return collectionId;
