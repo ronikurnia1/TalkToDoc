@@ -1,7 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using TalkToDoc.Client.Shared;
 using TalkToDoc.Components;
-using TalkToDoc.Models;
 using TalkToDoc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,12 +15,6 @@ builder.Services.AddScoped<IWatsonDiscoveryService, WatsonDiscoveryService>();
 builder.Services.AddAntiforgery();
 
 builder.Services.AddHttpClient();
-
-
-builder.Services.AddDbContext<DocumentContext>(options =>
-{
-    options.UseSqlite("Data Source=document.db");
-});
 
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 builder.Services.Configure<WatsonDiscoveryConfig>(builder.Configuration.GetSection(WatsonDiscoveryConfig.Name));
@@ -41,10 +33,6 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-using var scope = app.Services.CreateScope();
-var db = scope.ServiceProvider.GetRequiredService<DocumentContext>();
-db.Database.Migrate();
 
 app.UseHttpsRedirection();
 
